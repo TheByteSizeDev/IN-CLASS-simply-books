@@ -1,3 +1,14 @@
+import Signout from '../components/Signout';
+import User from '../components/User';
+import { useAuth } from '../utils/context/authContext';
+
 export default function Profile() {
-  return <div>Profile Here</div>;
+  const { user } = useAuth();
+
+  return (
+    <>
+      <User userObj={user} />
+      <Signout />
+    </>
+  );
 }
