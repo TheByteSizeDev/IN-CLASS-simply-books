@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import {
   Navbar, Container, Nav,
 } from 'react-bootstrap';
 
-export default function NavBar() {
+export default function NavBar({ setFilter }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -17,6 +17,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="justify-content-end">
           <Nav className="ml-auto">
+            <input placeholder="Let's Search" onChange={(event) => setFilter(event.target.value)} />
             {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
             <Link passHref href="/">
               <Nav.Link>Books</Nav.Link>
@@ -39,10 +40,6 @@ export default function NavBar() {
     </Navbar>
   );
 }
-
 NavBar.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    photoURL: PropTypes.string,
-  }).isRequired,
+  setFilter: PropTypes.func.isRequired,
 };

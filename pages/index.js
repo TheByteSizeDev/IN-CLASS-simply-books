@@ -9,6 +9,7 @@ import BookCard from '../components/BookCard';
 function Home() {
   // TODO: Set a state for books
   const [books, setBooks] = useState([]);
+  const [filter, setFilter] = useState('');
 
   // TODO: Get user ID using useAuth Hook
   const { user } = useAuth();
@@ -25,12 +26,21 @@ function Home() {
 
   return (
     <div className="text-center my-4">
+      <input placeholder="Let's Search" onChange={(event) => setFilter(event.target.value)} />
+      <br />
       <Link href="/book/new" passHref>
         <Button>Add A Book</Button>
       </Link>
       <div className="d-flex flex-wrap">
         {/* TODO: map over books here using BookCard component */}
-        {books.map((book) => (
+        {books.filter((book) => {
+          if (filter === '') {
+            return book;
+          } if (book.title.toLowerCase().includes(filter.toLowerCase())) {
+            return book;
+          }
+          return '';
+        }).map((book) => (
           <BookCard key={book.firebaseKey} bookObj={book} onUpdate={getAllTheBooks} />
         ))}
       </div>
